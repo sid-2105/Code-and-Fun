@@ -2,6 +2,8 @@ import { useState } from 'react'
 import './App.css'
 import {InputBox} from './components'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
+import { LuArrowUpDown } from "react-icons/lu";
+import { MdCurrencyExchange } from "react-icons/md";
 
 function App() {
   const [amount, setAmount] = useState()
@@ -23,7 +25,7 @@ function App() {
   }
 
   const convert = () =>{
-    setConvertedAmount((amount * currencyInfo[to]))
+    setConvertedAmount((amount * currencyInfo[to]).toFixed(3))
   }
 
   return (
@@ -60,7 +62,7 @@ function App() {
                                 className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
                                 onClick={swap}
                             >
-                                swap
+                                <LuArrowUpDown />   
                             </button>
                         </div>
                         <div className="w-full mt-1 mb-4">
@@ -74,8 +76,8 @@ function App() {
                                 amountDisabled
                             />
                         </div>
-                        <button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg" onClick={convert} >
-                            Convert {from.toUpperCase()} to {to.toUpperCase()}
+                        <button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg flex justify-center items-center gap-2" onClick={convert} >
+                            <MdCurrencyExchange/> {from.toUpperCase()} to {to.toUpperCase()}
                         </button>
                     </form>
                 </div>

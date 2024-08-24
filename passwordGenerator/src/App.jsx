@@ -1,6 +1,5 @@
 import { useCallback, useState, useEffect, useRef } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { FaCopy,FaRotateLeft } from "react-icons/fa6";
 import './App.css'
 
 function App() {
@@ -27,7 +26,7 @@ const copyPasswordToClipboard = useCallback(() => {
   passwordRef.current?.select()
   passwordRef.current?.setSelectionRange(0, 999)
   //document.execCommand('copy')
-  alert('Password copied to clipboard')
+  //alert('Password copied to clipboard')
 },[password])
 
 const resettoPrevious = useCallback(() => {
@@ -54,14 +53,16 @@ useEffect(() => {passwordGenerator()}, [length,numAllowed,symAllowed,passwordGen
             ref={passwordRef}
         />
         <button
+        title="copy"
         onClick={copyPasswordToClipboard}
         className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0 hover:bg-blue-800'
-        >copy</button>
+        ><FaCopy/></button>
 
 <button
+        title="reset"
         onClick={resettoPrevious}
         className='outline-none bg-red-700 text-white px-3 py-0.5 shrink-0 hover:bg-red-800'
-        >Reset</button>
+        ><FaRotateLeft/></button>
         
     </div>
     <div className='flex text-sm gap-x-2'>
