@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import service from "../appwrite/config";
+import appwriteService from "../appwrite/config";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
@@ -12,12 +12,14 @@ export default function Post() {
     const navigate = useNavigate();
 
     const userData = useSelector((state) => state.auth.userData);
+//  alert(post);
 
     const isAuthor = post && userData ? post.userId === userData.$id : false;
+    // alert(isAuthor);
 
     useEffect(() => {
         if (slug) {
-            service.getPost(slug).then((post) => {
+            appwriteService.getPost(slug).then((post) => {
                 if (post) setPost(post);
                 else navigate("/");
             });
@@ -25,9 +27,9 @@ export default function Post() {
     }, [slug, navigate]);
 
     const deletePost = () => {
-        service.deletePost(post.$id).then((status) => {
+        appwriteService.deletePost(post.$id).then((status) => {
             if (status) {
-                service.deleteFile(post.featuredImage);
+                appwriteService.deleteFile(post.featuredImage);
                 navigate("/");
             }
         });
@@ -38,7 +40,7 @@ export default function Post() {
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
-                        src={service.getFilePreview(post.featuredImage)}
+                        src={appwriteService.getFilePreview(post.featuredImage)}
                         alt={post.title}
                         className="rounded-xl"
                     />

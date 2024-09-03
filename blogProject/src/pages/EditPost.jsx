@@ -1,6 +1,7 @@
 import React, {useEffect,useState} from 'react'
 import { Container, PostForm } from '../components'
-import service from '../appwrite/config'
+import appwriteService from '../appwrite/config'
+import { useParams,useNavigate } from 'react-router-dom'
 
 
 function EditPost() {
@@ -10,12 +11,13 @@ function EditPost() {
 
     useEffect(()=>{
         if(slug) {
-            service.getPost(slug).then((post)=>{
+            appwriteService.getPost(slug).then((post)=>{
                 if(post)
                     setPosts(post)
-                else
-                    navigate('/')
             })
+        }
+                else{
+                    navigate('/')
         }
     },[slug,navigate])
   return post ?(
